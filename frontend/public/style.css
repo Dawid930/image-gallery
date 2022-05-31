@@ -1,0 +1,115 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: none;
+    box-sizing: border-box;
+    background: transparent;
+    font-family: inherit;
+}
+
+a{
+text-decoration: none;
+}
+a img {
+border: none;
+}
+
+button,
+a {
+cursor: pointer;
+color: inherit;
+}
+
+textarea {
+resize: none;
+}
+
+button,
+textarea,
+select {
+appearance: none !important;
+border-radius: 0;
+}
+
+
+/* END OF CSS RESET */
+
+
+body {
+    width: auto;
+    height: 100vh;
+    background-color: #171717;
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+#root {
+    display: flex;
+    height: 60vh;
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+}
+
+#form button {
+    background-color: #fdf2fd;
+    color: #252525;
+    border-radius: 20px;
+    padding: 5px 10px 5px 10px;
+    
+}
+
+input {
+    background-color: #252525;
+    color: #fdf2f2;
+    text-align: center;
+    padding: 5px 60px 5px 60px;
+    border-radius: 20px;
+}
+
+.swiper{
+    width: 70%;
+    height: 60vh;
+    color: #fdf2f2;
+}
+
+.swiper-slide h2 {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 20px;
+    background-color:darkgrey;
+    color: #fdf2f2;
+}
+
+.swiper-slide{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+    line-height: 20px;
+}
+
+.swiper-slide img {
+    display: flex;
+    width: auto;
+    height: 40vh;
+    margin-bottom: 10px;
+}
+
+.deleteBtn{
+    background-color: #fdf2fd;
+    color: #252525;
+    border-radius: 20px;
+    padding: 5px 10px 5px 10px;
+    margin-top: 10px;
+}
