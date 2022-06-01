@@ -37,8 +37,8 @@ border-radius: 0;
 
 
 body {
-    width: auto;
-    height: 100vh;
+    margin: auto;
+    width: 100%;
     background-color: #171717;
     font-family: 'Montserrat', sans-serif;
 
@@ -47,6 +47,7 @@ body {
 #root {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 #form {
@@ -56,14 +57,28 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    width: 100%;
     background-color: #464646;
+    color: #fdf2f2;
+}
+
+#form h2{
+    margin-bottom: 50px;
+    font-size: 50px;
 }
 
 #form button {
     background-color: #fdf2fd;
     color: #252525;
+    border: 1px solid #fdf2fd;
     border-radius: 20px;
-    padding: 5px 10px 5px 10px;
+    padding: 5px 15px 5px 15px;
+}
+
+#form button:hover {
+    background-color: #464646;
+    color: #fdf2fd;
+    border: 1px solid #fdf2fd;
 }
 
 input {
@@ -72,26 +87,30 @@ input {
     text-align: center;
     padding: 5px 60px 5px 60px;
     border-radius: 20px;
+    
 }
 
 .swiper{
-    width: 70%;
+    max-width: 1200px;
+    width: 100%;
     height: 100vh;
     color: #fdf2f2;
+   
 }
 
 .swiper-slide h2 {
     position: absolute;
-    top: 0;
+    top: 1%;
     left: 50%;
     transform: translateX(-50%);
-    padding: 20px;
-    background-color:darkgrey;
+    padding: 17px;
+    background-color: #464646;
     color: #fdf2f2;
 }
 
 .swiper-slide{
     display: flex;
+    width: 100%;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -99,21 +118,46 @@ input {
     line-height: 20px;
 }
 
+.swiper-button-next{
+    color: #fdf2f2;
+}
+.swiper-button-prev{
+    color: #fdf2f2;
+}
+
 .swiper-slide img {
     display: flex;
     width: auto;
-    height: 40vh;
+    max-width: 800px;
+    height: 60vh;
     margin-bottom: 10px;
 }
 
+.swiper-slide h3 {
+    font-size: 20px;
+    margin: 10px 0 10px 0;
+}
+
+.swiper-slide h4 {
+    font-size: 15px;
+    margin: 10px 0 10px 0;
+}
 .swiper-slide h5 {
-    font-size: 7px;
+    font-size: 8px;
 }
 
 .deleteBtn{
     background-color: #fdf2fd;
     color: #252525;
+    border: 1px solid #fdf2fd;
     border-radius: 20px;
-    padding: 5px 10px 5px 10px;
+    padding: 5px 15px 5px 15px;
     margin-top: 10px;
 }
+
+.deleteBtn:hover {
+    background-color: #171717;
+    color: #fdf2fd;
+    border: 1px solid #fdf2fd;
+}
+

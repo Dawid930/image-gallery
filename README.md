@@ -1,12 +1,17 @@
 # Getting started
 
-You can check the project on the link below:
+To start the website please write the following to your terminal:
+
+1. cd backend 
+2. npm install
+3. node server.js
 
 
-
-To start the website from the code basis please insert the following command to the command line:
-
-`node backend/server.js`
 
 ## Scope of the project
+
+The aim of the project was to build a website with server side included, where users can upload their favourite pictures. 
+
+The image gallery was built with vanilla JavaScript and styled with CSS. I have used Express.js to build the server side of the project.
+
 

@@ -9,6 +9,8 @@ const swiperComponent = (data, component) => {
             <div class="swiper-wrapper">
                 ${data.map(img => component(img)).join("")}
             </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
         </div>
     `
 }
@@ -28,7 +30,7 @@ const swiperSlideComponent = ({url, title, upload_date, photographer_name, filen
 
 const formComponent = `
     <form id="form">
-        <h2>Upload your pictures</h2>
+        <h2>Upload your pictures!</h2>
         <input type="text" required name="title" class="title" placeholder="Title">
         <input type="text" required name="photographer" class="photographer" placeholder="Photographer's name">
         <input type="url" required name="url" class="url" placeholder="Paste here the original URL">
@@ -46,7 +48,11 @@ const loadEvent = async () => {
     rootElement.insertAdjacentHTML('beforeend', formComponent)
     
     const swiper = new Swiper(".swiper", {
-        loop: true
+        loop: true,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          }
     })
     
     
