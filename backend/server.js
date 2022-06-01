@@ -12,7 +12,7 @@ app.use(fileUpload())
 
 
 
-const pathToFrontend = path.join(`${__dirname}/../frontend`)
+const pathToFrontend = path.join(`${__dirname}/frontend`)
 
 
 //index kiszolgalasa
@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
 //feltotott kepek kiszolgalasa 
 
 app.get('/image-list', (req, res) =>{
-    res.sendFile(`${pathToFrontend}/data.json`)
+    res.sendFile(`${__dirname}/data.json`)
 })
 
 
@@ -35,7 +35,7 @@ const uploads = `${pathToFrontend}/img/`
 // jsonData letrehozasa, hogy abba tudjuk belementeni eloszor az adatokat h majd push mehessen a data.jsonba
 let jsonData = [];
     try {
-        let data = fs.readFileSync(`${pathToFrontend}/data.json`, error => {
+        let data = fs.readFileSync(`${__dirname}/data.json`, error => {
             if (error) {
                 console.log(error);
             }
@@ -65,7 +65,7 @@ app.post('/', (req, res) => {
     inputFields.filename = picture.name
     jsonData.push(inputFields)
 
-    fs.writeFile(`${pathToFrontend}/data.json`, JSON.stringify(jsonData), error => {
+    fs.writeFile(`${__dirname}/data.json`, JSON.stringify(jsonData), error => {
         if (error) {
             console.log(error);
         }
@@ -93,7 +93,7 @@ app.delete('/delete/:id' , (req,res) => {
         //console.log(element);
         //console.log(req.params.id);
         if (element.id.toString() === req.params.id) { // ha az id-k megegyeznek, akkor torolje
-			const removePath = __dirname + "/../frontend/img/" + element.filename;
+			const removePath = __dirname + "/frontend/img/" + element.filename;
 			console.log(removePath);
 			try {
 				fs.unlinkSync(removePath);
@@ -112,7 +112,7 @@ app.delete('/delete/:id' , (req,res) => {
     //console.log(newJsonData);
 
     //Overwrite the data.json with the updated array
-    fs.writeFile(`${pathToFrontend}/data.json`, JSON.stringify(jsonData), err => {
+    fs.writeFile(`${__dirname}/data.json`, JSON.stringify(jsonData), err => {
         if (err) {
             console.log(err);
         }
