@@ -18,9 +18,9 @@ const swiperSlideComponent = ({url, title, upload_date, photographer_name, filen
     <div class="swiper-slide" id=${id}>
         <img src="/img/${filename}">
         <h2>${title}</h2>
+        <h5>Original url: ${url}</h5>
         <h3>Photographer's name: ${photographer_name}</h3>
         <h4>Upload date: ${upload_date}</h4>
-        <h5>Original url: ${url}</h5>
         <button class="deleteBtn">Delete</button>
     </div>
     `
@@ -28,11 +28,13 @@ const swiperSlideComponent = ({url, title, upload_date, photographer_name, filen
 
 const formComponent = `
     <form id="form">
+        <h2>Upload your pictures</h2>
         <input type="text" required name="title" class="title" placeholder="Title">
         <input type="text" required name="photographer" class="photographer" placeholder="Photographer's name">
         <input type="url" required name="url" class="url" placeholder="Paste here the original URL">
         <input type="file" required accept=".jpg, .jpeg, .png" name="picture" class="picture">
         <button type="submit">Submit</button>
+        <p id="log"></p>
     </form>
 `
 
@@ -41,22 +43,29 @@ const loadEvent = async () => {
     const result = await parseJSON("/image-list")
     
     rootElement.insertAdjacentHTML("beforeend", swiperComponent(result, swiperSlideComponent))
-    rootElement.insertAdjacentHTML("afterend", formComponent)
+    rootElement.insertAdjacentHTML('beforeend', formComponent)
     
     const swiper = new Swiper(".swiper", {
         loop: true
     })
     
     
+    const logUpload = () => {
+        const log = document.getElementById("log")
+        log.textContent = `Form Submitted!`
+    }
+
     const formElement = document.getElementById("form")
     
     
     formElement.addEventListener("submit", e => {
         e.preventDefault()
+
         
+
         const today = new Date()
         const formData = new FormData()
-        const formattedDate = `${today.getFullYear()}.${(today.getMonth()+1)}.${today.getDate()} ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`
+        const formattedDate = `${today.getFullYear()}.${(today.getMonth()+1)}.${today.getDate()}. ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`
 
         formData.append("url", e.target.querySelector(`input[name="url"]`).value)
         formData.append("title", e.target.querySelector(`input[name="title"]`).value)
@@ -85,7 +94,7 @@ const loadEvent = async () => {
                     swiper.appendSlide(swiperSlideComponent({id, url, title, photographer_name, filename, upload_date})) 
                     addEventListenersToDeleteButtons()
                     swiper.update()
-                    
+                    logUpload()
                 }
                 
             })

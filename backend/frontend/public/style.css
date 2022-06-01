@@ -8,7 +8,7 @@
     font-family: inherit;
 }
 
-a{
+a {
 text-decoration: none;
 }
 a img {
@@ -46,7 +46,7 @@ body {
 
 #root {
     display: flex;
-    height: 60vh;
+    flex-direction: column;
 }
 
 #form {
@@ -55,7 +55,8 @@ body {
     gap: 30px;
     justify-content: center;
     align-items: center;
-    height: 40vh;
+    height: 100vh;
+    background-color: #464646;
 }
 
 #form button {
@@ -63,7 +64,6 @@ body {
     color: #252525;
     border-radius: 20px;
     padding: 5px 10px 5px 10px;
-    
 }
 
 input {
@@ -76,7 +76,7 @@ input {
 
 .swiper{
     width: 70%;
-    height: 60vh;
+    height: 100vh;
     color: #fdf2f2;
 }
 
@@ -104,6 +104,10 @@ input {
     width: auto;
     height: 40vh;
     margin-bottom: 10px;
+}
+
+.swiper-slide h5 {
+    font-size: 7px;
 }
 
 .deleteBtn{
