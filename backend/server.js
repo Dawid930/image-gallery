@@ -1,10 +1,8 @@
-const { json } = require("express")
 const express = require("express")
 const fileUpload = require("express-fileupload")
 const fs = require("fs")
 const path = require("path")
-const { addAbortSignal } = require("stream")
-const { deflateSync } = require("zlib")
+
 
 const app = express()
 app.use(express.json())
@@ -15,14 +13,14 @@ app.use(fileUpload())
 const pathToFrontend = path.join(`${__dirname}/frontend`)
 
 
-//index kiszolgalasa
+// serve of index.html
 app.get('/', (req, res) => {
     res.sendFile(`${pathToFrontend}/index.html`)
 })
 
 
 
-//feltotott kepek kiszolgalasa 
+// serve of uploaded pictures from data.json
 
 app.get('/image-list', (req, res) =>{
     res.sendFile(`${__dirname}/data.json`)
@@ -32,7 +30,7 @@ app.get('/image-list', (req, res) =>{
 
 const uploads = `${pathToFrontend}/img/`
 
-// jsonData letrehozasa, hogy abba tudjuk belementeni eloszor az adatokat h majd push mehessen a data.jsonba
+// creation of jsonData to save the data then push it to data.json
 let jsonData = [];
     try {
         let data = fs.readFileSync(`${__dirname}/data.json`, error => {
@@ -46,7 +44,7 @@ let jsonData = [];
         
     }
 
-const getId = () => {        //ami enne az erteke lesz az megy hozza az adathoz lentebb
+const getId = () => {
     let ids= [];
     jsonData.forEach((element) => {
         ids.push(parseInt(element.id))
@@ -58,7 +56,7 @@ const getId = () => {        //ami enne az erteke lesz az megy hozza az adathoz 
 app.post('/', (req, res) => {
     const picture = req.files.picture
 
-    //upload data from input fields
+    // upload data from input fields
 
     const inputFields = req.body
     inputFields.id = getId();
@@ -73,8 +71,6 @@ app.post('/', (req, res) => {
 
     //upload image
 
-
-
     if (picture) {
         picture.mv(`${uploads}${picture.name}`)
     }
@@ -83,16 +79,13 @@ app.post('/', (req, res) => {
 
 })
 
-
-
-    //delete image and json data
+    // delete image and json data
 
 app.delete('/delete/:id' , (req,res) => {
 	let newJsonData = [];
 	jsonData.forEach((element) => {
-        //console.log(element);
-        //console.log(req.params.id);
-        if (element.id.toString() === req.params.id) { // ha az id-k megegyeznek, akkor torolje
+    
+        if (element.id.toString() === req.params.id) { 
 			const removePath = __dirname + "/frontend/img/" + element.filename;
 			console.log(removePath);
 			try {
@@ -101,24 +94,24 @@ app.delete('/delete/:id' , (req,res) => {
 				console.error(err);
 			}
 
-        } else { // HA NEM EGYEZNEK MEG AKKOR PUSHOLJA A NEWJSONDATA-BA!!!
-            newJsonData.push(element) // itt kerul bele a newJsonData-ba az uj array!
+        } else { 
+            newJsonData.push(element) 
         }
 
 	});
     
-    jsonData = newJsonData //jsonData tartalma legyen felulirva az uj array-el, h ne maradjon benne a regi ertek
-    //console.log(jsonData);
-    //console.log(newJsonData);
+    jsonData = newJsonData
+  
 
-    //Overwrite the data.json with the updated array
+
+    // overwrite the data.json with the updated array
     fs.writeFile(`${__dirname}/data.json`, JSON.stringify(jsonData), err => {
         if (err) {
             console.log(err);
         }
     })
 
-    // Send back what was deleted
+    // send back what was deleted
     res.sendStatus(200)
         
         

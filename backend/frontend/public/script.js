@@ -39,7 +39,6 @@ const formComponent = `
 const loadEvent = async () => {
     const rootElement = document.getElementById("root")
     const result = await parseJSON("/image-list")
-    //console.log(result);
     
     rootElement.insertAdjacentHTML("beforeend", swiperComponent(result, swiperSlideComponent))
     rootElement.insertAdjacentHTML("afterend", formComponent)
@@ -83,9 +82,9 @@ const loadEvent = async () => {
                     const photographer_name = res.photographer_name
                     const filename = res.filename
                     const upload_date = res.upload_date
-                    swiper.appendSlide(swiperSlideComponent({id, url, title, photographer_name, filename, upload_date})) // a valtozo neve ugyanaz legyen mint a res mert csak ugy ismeri fel valamiert
-                    addEventListenersToDeleteButtons() // van ertelme ezt itt is?
-                    swiper.update() //nem igazan csinal semmit ebben az esetben 
+                    swiper.appendSlide(swiperSlideComponent({id, url, title, photographer_name, filename, upload_date})) 
+                    addEventListenersToDeleteButtons()
+                    swiper.update()
                     
                 }
                 
@@ -100,18 +99,17 @@ const loadEvent = async () => {
         const removeButtons = document.getElementsByClassName("deleteBtn")
         
 
-        Array.from(removeButtons).forEach((removeButton) => { //array-e kellett alakitani, h lehessen szelektalni a lentebb az adott element id-jat 
+        Array.from(removeButtons).forEach((removeButton) => {
 			removeButton.addEventListener("click", () => {
-				let id = removeButton.parentElement.id; //parentElement kellett nem parentNode!
-                console.log(id);
-				fetch("/delete/" + id, {  //itt kotjuk ossze backenddel, hogy tudja melyiket kell kitorolni
+				let id = removeButton.parentElement.id; 
+                
+				fetch("/delete/" + id, { 
 					method: "DELETE",
 				})
-					.then((res) => res.text()) // or res.json()
-					.then((res) => console.log(res));
+					.then((res) => res.text()) 
 
-				swiper.removeSlide(swiper.realIndex); // realindex : Index number of currently active slide 
-				swiper.update(); // nem igazan csinal semmit ebben az esetben 
+				swiper.removeSlide(swiper.realIndex);
+				swiper.update(); 
 			});
 		});
 	};
@@ -121,51 +119,3 @@ const loadEvent = async () => {
 }
     
 window.addEventListener("load", loadEvent)
-
-
-/*     const deleteButtons = document.querySelector(".delete")  //Original delete probalkozas
-
-    deleteButtons.addEventListener("click", e => {
-        
-        
-        const slideName = e.target.innerHTML;
-        console.log(slideName);
-        
-        const deleteSettings = {
-            method: "DELETE"
-        }
-
-        fetch(`/delete/${id}`, deleteSettings)
-            .then(async data =>{
-                const data1 = await data.json()
-                console.log(data1);
-            })
-            .catch(error => {
-                console.log(error);
-            })
-        }) */
-        
- 
-
-    /* 
-    const deleteButtons = document.querySelectorAll(".delete")
-    for(const deleteButton of deleteButtons) {
-
-        deleteButton.addEventListener("click", e => {
-            const title = e.target.innerHTML;
-            console.log(title);
-
-            
-            const deleteSettings = {
-                method: "DELETE",
-             
-            }
-
-            fetch('/delete', deleteSettings)
-                .then(async data =>{
-                    const data1 = await data.json()
-                    console.log(data1);
-                    swiper.removeSlide(title)
-                })
-            })
-        } */
